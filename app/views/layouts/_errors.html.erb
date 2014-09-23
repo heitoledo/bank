@@ -1,0 +1,12 @@
+<% if record.errors.any? %>
+  <div class="panel panel-danger">
+    <div class="panel-heading">
+      <div class="panel-title"><%= pluralize(record.errors.count, "error") %> prohibited this entry from being saved:</div>
+    </div>
+    <ul class="list-group">
+    <% record.errors.full_messages.each do |message| %>
+      <li class="list-group-item"><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>

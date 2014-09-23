@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  week_id: 
+  type: 1
+  description: MyString
+  date: 2014-09-22
+  value: 9.99
+
+two:
+  week_id: 
+  type: 1
+  description: MyString
+  date: 2014-09-22
+  value: 9.99

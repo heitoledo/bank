@@ -1,0 +1,28 @@
+<div class="page-header">
+  <h2><%= @entry.description %></h2>
+</div>
+
+<p>
+  <strong>Week:</strong>
+  <%= @entry.week %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= t @entry.entry_type %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @entry.date %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @entry.value %>
+</p>
+
+<div class="btn-group">
+  <%= link_to 'Edit', edit_entry_path(@entry), class: 'btn btn-primary' %>
+  <%= link_to 'List all', entries_path, class: 'btn btn-default' %>
+</div>

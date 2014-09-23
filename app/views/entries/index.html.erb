@@ -1,0 +1,56 @@
+<div class="page-header">
+  <h2>Listing entries</h2>
+</div>
+
+<table class="table table-condensed table-responsive">
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Type</th>
+      <th>Date</th>
+      <th>Value</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @weeks.each do |week| %>
+      <% if week.entries.present? %>
+        <tr class="info text-center">
+          <td colspan="8">
+            <%= week %>
+            <%
+              debit = week.entries.debit.sum(:value)
+              credit = week.entries.credit.sum(:value)
+            %>
+            <span class="label label-success"><%= credit %></span> -
+            <span class="label label-danger"><%= debit %></span> =
+            <span class="label label-primary"><%= credit - debit %></span>
+          </td>
+        </tr>
+        <% week.entries.each do |entry| %>
+          <tr>
+            <td><%= entry.description %></td>
+            <td><%= t entry.entry_type %></td>
+            <td><%= entry.date %></td>
+            <td class="<%= entry.debit? ? 'danger' : 'success' %>"><%= entry.value %></td>
+            <td><%= link_to 'Show', entry %></td>
+            <td><%= link_to 'Edit', edit_entry_path(entry) %></td>
+            <td><%= link_to 'Destroy', entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<div class="btn-group">
+  <%= link_to 'New Entry', new_entry_path, class: 'btn btn-primary' %>
+  <% if action_name == 'archive' %>
+    <%= link_to 'Show pending only', entries_path, class: 'btn btn-default' %>
+  <% else %>
+    <%= link_to 'Show archived', archive_entries_path, class: 'btn btn-default' %>
+  <% end %>
+</div>

@@ -6,10 +6,6 @@
   <% render partial: 'layouts/errors', locals: { record: @entry } %>
 
   <div class="form-group">
-    <%= f.label :week_id, class: 'control-label' %>
-    <%= f.collection_select :week_id, @weeks, :id, :to_s, {include_blank: 'Select a week'}, class: 'form-control' %>
-  </div>
-  <div class="form-group">
     <%= f.label :entry_type, class: 'control-label' %>
     <%= f.select :entry_type, @types.keys.map {|type| [type.titleize,type]}, {}, class: 'form-control' %>
   </div>
@@ -25,6 +21,12 @@
     <%= f.label :value, class: 'control-label' %>
     <%= f.text_field :value, class: 'form-control price' %>
   </div>
+  <% if @entry.new_record? %>
+    <div class="form-group">
+      <%= f.label :times, class: 'control-label' %>
+      <%= f.number_field :times, value: 1, class: 'form-control' %>
+    </div>
+  <% end %>
   <div class="form-group">
     <%= f.submit class: 'btn btn-primary' %>
   </div>

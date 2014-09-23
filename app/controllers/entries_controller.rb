@@ -23,10 +23,17 @@ class EntriesController < ApplicationController
   end
 
   def create
-    @entry = Entry.new(entry_params)
-    @entry.save
+    times = entry_params[:times].to_i
+    times.times do |i|
+      @entry = Entry.new(entry_params)
+      @entry.description = "#{@entry.description} (#{i+1}/#{times})" if times > 1
+      @entry.date = @entry.date + i.month
+      @entry.week = Week.where('start_date <= :date AND end_date >= :date',
+      { date: @entry.date }).first
+      @entry.save
+    end
 
-    respond_with @entry
+    redirect_to entries_url, notice: 'Entry was successfully created.'
   end
 
   def update
@@ -53,6 +60,7 @@ class EntriesController < ApplicationController
     end
 
     def entry_params
-      params.require(:entry).permit(:week_id, :entry_type, :description, :date, :value)
+      params.require(:entry).permit(:week_id, :entry_type, :description, 
+        :date, :value, :times)
     end
 end
